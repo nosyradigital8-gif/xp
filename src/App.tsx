@@ -6,7 +6,6 @@ import Services from '@/pages/Services';
 import About from '@/pages/About';
 import Projects from '@/pages/Projects';
 import Contact from '@/pages/Contact';
-
 // Nigeria service pages
 import ConsultingNigeria from '@/pages/nigeria/ConsultingService';
 import OilGasNigeria from '@/pages/nigeria/OilGasService';
@@ -15,18 +14,12 @@ import MiningNigeria from '@/pages/nigeria/MiningService';
 import CommerceNigeria from '@/pages/nigeria/CommerceService';
 import EcommerceNigeria from '@/pages/nigeria/EcommerceService';
 import LogisticsNigeria from '@/pages/nigeria/LogisticsService';
-
 // Canada service pages
 import ConsultingCanada from '@/pages/canada/ConsultingService';
 import OperationsCanada from '@/pages/canada/OperationsService';
 import LogisticsCanada from '@/pages/canada/LogisticsService';
 import TradeCanada from '@/pages/canada/TradeService';
 import CommunityCanada from '@/pages/canada/CommunityService';
-
-// Country-specific main pages
-import NigeriaHome from '@/pages/nigeria/Home';
-import CanadaHome from '@/pages/canada/Home';
-
 import './styles/globals.css';
 
 const App = () => {
@@ -44,8 +37,8 @@ const App = () => {
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
             
-            {/* Nigeria Routes */}
-            <Route path="/nigeria" element={<NigeriaHome />} />
+            {/* Nigeria Routes - Using Index for home */}
+            <Route path="/nigeria" element={<Index />} />
             <Route path="/nigeria/about" element={<About />} />
             <Route path="/nigeria/services" element={<Services />} />
             <Route path="/nigeria/projects" element={<Projects />} />
@@ -60,8 +53,8 @@ const App = () => {
             <Route path="/nigeria/services/ecommerce" element={<EcommerceNigeria />} />
             <Route path="/nigeria/services/logistics" element={<LogisticsNigeria />} />
             
-            {/* Canada Routes */}
-            <Route path="/canada" element={<CanadaHome />} />
+            {/* Canada Routes - Using Index for home */}
+            <Route path="/canada" element={<Index />} />
             <Route path="/canada/about" element={<About />} />
             <Route path="/canada/services" element={<Services />} />
             <Route path="/canada/projects" element={<Projects />} />
