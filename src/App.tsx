@@ -23,9 +23,7 @@ import LogisticsCanada from '@/pages/canada/LogisticsService';
 import TradeCanada from '@/pages/canada/TradeService';
 import CommunityCanada from '@/pages/canada/CommunityService';
 
-// Country-specific main pages
-import NigeriaHome from '@/pages/nigeria/Home';
-import CanadaHome from '@/pages/canada/Home';
+
 
 import './styles/globals.css';
 
@@ -45,7 +43,6 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             
             {/* Nigeria Routes */}
-            <Route path="/nigeria" element={<NigeriaHome />} />
             <Route path="/nigeria/about" element={<About />} />
             <Route path="/nigeria/services" element={<Services />} />
             <Route path="/nigeria/projects" element={<Projects />} />
@@ -61,7 +58,6 @@ const App = () => {
             <Route path="/nigeria/services/logistics" element={<LogisticsNigeria />} />
             
             {/* Canada Routes */}
-            <Route path="/canada" element={<CanadaHome />} />
             <Route path="/canada/about" element={<About />} />
             <Route path="/canada/services" element={<Services />} />
             <Route path="/canada/projects" element={<Projects />} />
