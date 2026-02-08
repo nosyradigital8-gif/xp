@@ -75,7 +75,6 @@ export const countryData: Record<string, CountryData> = {
       cta3: "Request a Quote",
       trustBadges: [
         { icon: "FileCheck", label: "CAC Registered" },
-        { icon: "Calendar", label: "Established 2024" },
         { icon: "Network", label: "7+ Sectors" }
       ]
     },
@@ -236,7 +235,6 @@ export const countryData: Record<string, CountryData> = {
       cta3: "Get Started",
       trustBadges: [
         { icon: "Shield", label: "Federally Registered" },
-        { icon: "Calendar", label: "Launching 2025" },
         { icon: "Network", label: "5+ Services" }
       ]
     },
@@ -263,13 +261,6 @@ export const countryData: Record<string, CountryData> = {
         number: "100%",
         label: "COMPLIANT",
         description: "Canadian regulations",
-        isNumeric: false,
-        value: 0
-      },
-      {
-        number: "2025",
-        label: "LAUNCH YEAR",
-        description: "Coming soon",
         isNumeric: false,
         value: 0
       },
