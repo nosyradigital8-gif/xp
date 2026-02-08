@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { CountryProvider } from '@/contexts/CountryContext';
-import CountryRouteWrapper from '@/components/CountryRouteWrapper';
 import Index from '@/pages/Index';
 import Services from '@/pages/Services';
 import About from '@/pages/About';
@@ -28,51 +27,49 @@ const App = () => {
     <ThemeProvider>
       <BrowserRouter>
         <CountryProvider>
-          <CountryRouteWrapper>
-            <Routes>
-              {/* Global Home Page */}
-              <Route path="/" element={<Index />} />
-              
-              {/* Global Main Pages */}
-              <Route path="/services" element={<Services />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/contact" element={<Contact />} />
-              
-              {/* Nigeria Routes - Using Index for home */}
-              <Route path="/nigeria" element={<Index />} />
-              <Route path="/nigeria/about" element={<About />} />
-              <Route path="/nigeria/services" element={<Services />} />
-              <Route path="/nigeria/projects" element={<Projects />} />
-              <Route path="/nigeria/contact" element={<Contact />} />
-              
-              {/* Nigeria Service Pages */}
-              <Route path="/nigeria/services/consulting" element={<ConsultingNigeria />} />
-              <Route path="/nigeria/services/oil-gas" element={<OilGasNigeria />} />
-              <Route path="/nigeria/services/construction" element={<ConstructionNigeria />} />
-              <Route path="/nigeria/services/mining" element={<MiningNigeria />} />
-              <Route path="/nigeria/services/commerce" element={<CommerceNigeria />} />
-              <Route path="/nigeria/services/ecommerce" element={<EcommerceNigeria />} />
-              <Route path="/nigeria/services/logistics" element={<LogisticsNigeria />} />
-              
-              {/* Canada Routes - Using Index for home */}
-              <Route path="/canada" element={<Index />} />
-              <Route path="/canada/about" element={<About />} />
-              <Route path="/canada/services" element={<Services />} />
-              <Route path="/canada/projects" element={<Projects />} />
-              <Route path="/canada/contact" element={<Contact />} />
-              
-              {/* Canada Service Pages */}
-              <Route path="/canada/services/consulting" element={<ConsultingCanada />} />
-              <Route path="/canada/services/operations" element={<OperationsCanada />} />
-              <Route path="/canada/services/logistics" element={<LogisticsCanada />} />
-              <Route path="/canada/services/trade" element={<TradeCanada />} />
-              <Route path="/canada/services/community" element={<CommunityCanada />} />
-              
-              {/* 404 - Catch all */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </CountryRouteWrapper>
+          <Routes>
+            {/* Global Home Page */}
+            <Route path="/" element={<Index />} />
+            
+            {/* Global Main Pages */}
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+            
+            {/* Nigeria Routes - Using Index for home */}
+            <Route path="/nigeria" element={<Index />} />
+            <Route path="/nigeria/about" element={<About />} />
+            <Route path="/nigeria/services" element={<Services />} />
+            <Route path="/nigeria/projects" element={<Projects />} />
+            <Route path="/nigeria/contact" element={<Contact />} />
+            
+            {/* Nigeria Service Pages */}
+            <Route path="/nigeria/services/consulting" element={<ConsultingNigeria />} />
+            <Route path="/nigeria/services/oil-gas" element={<OilGasNigeria />} />
+            <Route path="/nigeria/services/construction" element={<ConstructionNigeria />} />
+            <Route path="/nigeria/services/mining" element={<MiningNigeria />} />
+            <Route path="/nigeria/services/commerce" element={<CommerceNigeria />} />
+            <Route path="/nigeria/services/ecommerce" element={<EcommerceNigeria />} />
+            <Route path="/nigeria/services/logistics" element={<LogisticsNigeria />} />
+            
+            {/* Canada Routes - Using Index for home */}
+            <Route path="/canada" element={<Index />} />
+            <Route path="/canada/about" element={<About />} />
+            <Route path="/canada/services" element={<Services />} />
+            <Route path="/canada/projects" element={<Projects />} />
+            <Route path="/canada/contact" element={<Contact />} />
+            
+            {/* Canada Service Pages */}
+            <Route path="/canada/services/consulting" element={<ConsultingCanada />} />
+            <Route path="/canada/services/operations" element={<OperationsCanada />} />
+            <Route path="/canada/services/logistics" element={<LogisticsCanada />} />
+            <Route path="/canada/services/trade" element={<TradeCanada />} />
+            <Route path="/canada/services/community" element={<CommunityCanada />} />
+            
+            {/* 404 - Catch all */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </CountryProvider>
       </BrowserRouter>
     </ThemeProvider>
