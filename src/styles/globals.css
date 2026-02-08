@@ -1,28 +1,28 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ===== ROOT VARIABLES ===== */
+/* ===== ROOT VARIABLES (DARK MODE - DEFAULT) ===== */
 :root {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 98%;
-  --background-secondary: 0 0% 7%;
+  --background: 0 0% 7%;           /* Dark background */
+  --foreground: 0 0% 98%;          /* Light text */
+  --background-secondary: 0 0% 12%;
   --muted-foreground: 0 0% 63%;
-  --border: 0 0% 18%;
-  --primary: 0 100% 50%;
-  --card: 0 0% 3.9%;
+  --border: 0 0% 25%;
+  --primary: 0 85% 60%;            /* Red primary color */
+  --card: 0 0% 10%;
 }
 
+/* ===== LIGHT MODE ===== */
 .light {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 5%;
+  --background: 0 0% 100%;         /* White background */
+  --foreground: 0 0% 9%;           /* Dark text */
   --background-secondary: 0 0% 96%;
-  --muted-foreground: 0 0% 40%;
+  --muted-foreground: 0 0% 45%;
   --border: 0 0% 85%;
-  --primary: 0 85% 50%;
+  --primary: 0 85% 50%;            /* Red primary color */
   --card: 0 0% 98%;
 }
 
@@ -133,15 +133,11 @@ body {
 }
 
 .bg-cta-gradient {
-  background: linear-gradient(135deg, hsl(0 85% 15%) 0%, hsl(0 85% 25%) 50%, hsl(0 85% 15%) 100%);
-}
-
-.light .bg-cta-gradient {
   background: linear-gradient(135deg, hsl(0 85% 55%) 0%, hsl(0 85% 65%) 50%, hsl(0 85% 55%) 100%);
 }
 
 .text-gradient-red {
-  background: linear-gradient(135deg, #ff0000 0%, #ff3333 100%);
+  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -149,27 +145,21 @@ body {
 
 /* ===== GLOWS & EFFECTS ===== */
 .glow-red-large {
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.25) 0%, rgba(255, 0, 0, 0.1) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 50%, transparent 70%);
   filter: blur(60px);
   pointer-events: none;
 }
 
 .glow-red-medium {
-  background: radial-gradient(circle, rgba(255, 51, 51, 0.2) 0%, rgba(255, 51, 51, 0.08) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.08) 50%, transparent 70%);
   filter: blur(50px);
   pointer-events: none;
 }
 
 .glow-red-small {
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.15) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, transparent 60%);
   filter: blur(40px);
   pointer-events: none;
-}
-
-.light .glow-red-large,
-.light .glow-red-medium,
-.light .glow-red-small {
-  opacity: 0.4;
 }
 
 /* ===== ICON CONTAINERS ===== */
@@ -199,7 +189,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 0.875rem;
-  color: hsl(var(--foreground));
+  color: #ffffff;
   background-color: hsl(var(--primary));
   border-radius: 0.5rem;
   border: none;
@@ -241,18 +231,18 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 1rem;
-  color: hsl(0 85% 20%);
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: hsl(var(--primary));
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
 }
 
 .btn-cta-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4);
 }
 
 .btn-cta-secondary {
@@ -263,16 +253,17 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 1rem;
-  color: #ffffff;
+  color: hsl(var(--foreground));
   background-color: transparent;
-  border: 2px solid #ffffff;
+  border: 2px solid hsl(var(--border));
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .btn-cta-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: hsl(var(--primary) / 0.1);
+  border-color: hsl(var(--primary));
   transform: translateY(-2px);
 }
 
@@ -315,6 +306,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  color: #ffffff;
   background-color: hsl(var(--primary));
   border-radius: 0.375rem;
 }
