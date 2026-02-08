@@ -1,22 +1,20 @@
-// FILE PATH: src/components/common/HeroSection.tsx
-// Place this file at: src/components/common/HeroSection.tsx
-
 import { ArrowRight, ShoppingBag, FileCheck, Calendar, Network, Shield } from "lucide-react";
 import { useCountry } from "@/contexts/CountryContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import heroBackground from "@/assets/hero-bg.jpg";
 
 // Floating particles configuration
 const particles = [
-  { size: 5, left: "88%", top: "8%", opacity: 0.54, delay: 0 },
-  { size: 12, left: "90%", top: "5%", opacity: 0.77, delay: 0.5 },
-  { size: 15, left: "24%", top: "2%", opacity: 0.34, delay: 1 },
-  { size: 8, left: "12%", top: "50%", opacity: 0.45, delay: 1.5 },
-  { size: 10, left: "75%", top: "25%", opacity: 0.62, delay: 2 },
-  { size: 7, left: "46%", top: "18%", opacity: 0.52, delay: 0.3 },
-  { size: 13, left: "64%", top: "75%", opacity: 0.38, delay: 0.8 },
-  { size: 11, left: "30%", top: "40%", opacity: 0.65, delay: 1.2 },
-  { size: 9, left: "87%", top: "60%", opacity: 0.48, delay: 1.8 },
-  { size: 6, left: "18%", top: "85%", opacity: 0.56, delay: 2.2 },
+  { size: 5, left: "88%", top: "8%", opacity: 0.3, delay: 0 },
+  { size: 12, left: "90%", top: "5%", opacity: 0.4, delay: 0.5 },
+  { size: 15, left: "24%", top: "2%", opacity: 0.25, delay: 1 },
+  { size: 8, left: "12%", top: "50%", opacity: 0.3, delay: 1.5 },
+  { size: 10, left: "75%", top: "25%", opacity: 0.35, delay: 2 },
+  { size: 7, left: "46%", top: "18%", opacity: 0.3, delay: 0.3 },
+  { size: 13, left: "64%", top: "75%", opacity: 0.25, delay: 0.8 },
+  { size: 11, left: "30%", top: "40%", opacity: 0.35, delay: 1.2 },
+  { size: 9, left: "87%", top: "60%", opacity: 0.3, delay: 1.8 },
+  { size: 6, left: "18%", top: "85%", opacity: 0.3, delay: 2.2 },
 ];
 
 const iconMap: Record<string, any> = {
@@ -28,6 +26,7 @@ const iconMap: Record<string, any> = {
 
 const HeroSection = () => {
   const { currentData } = useCountry();
+  const { theme } = useTheme();
 
   const scrollToSectors = () => {
     document.getElementById("sectors")?.scrollIntoView({ behavior: "smooth" });
@@ -42,7 +41,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-hero-gradient">
+    <section className="relative min-h-screen w-full overflow-hidden bg-background">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -50,41 +49,47 @@ const HeroSection = () => {
           alt="Business cityscape"
           className="h-full w-full object-cover"
           style={{
-            filter: "brightness(0.55) contrast(1.1) saturate(0.9)",
+            opacity: theme === 'light' ? 0.15 : 0.25,
+            filter: theme === 'light' ? 'brightness(1.2) contrast(0.9)' : 'brightness(0.6) contrast(1.1)',
           }}
         />
       </div>
 
-      {/* Dark Gradient Overlay */}
+      {/* Gradient Overlay - Light for light theme, Dark for dark theme */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
-          background:
-            "linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(20, 20, 20, 0.45) 50%, rgba(0, 0, 0, 0.6) 100%)",
+          background: theme === 'light'
+            ? "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(249, 250, 251, 0.9) 50%, rgba(255, 255, 255, 0.95) 100%)"
+            : "linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.9) 50%, rgba(18, 18, 18, 0.95) 100%)",
         }}
       />
 
-      {/* Red Glow 1 */}
+      {/* Subtle Brand Color Glow 1 */}
       <div
-        className="absolute w-96 h-96 glow-red-large z-[2]"
+        className="absolute w-[500px] h-[500px] z-[2]"
         style={{
-          left: "25%",
-          top: "22%",
-          opacity: 0.98,
+          left: "10%",
+          top: "20%",
+          background: "radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 70%)",
+          filter: "blur(80px)",
+          pointerEvents: "none",
         }}
       />
 
-      {/* Red Glow 2 */}
+      {/* Subtle Brand Color Glow 2 */}
       <div
-        className="absolute w-80 h-80 glow-red-medium z-[2]"
+        className="absolute w-[400px] h-[400px] z-[2]"
         style={{
-          left: "58%",
-          top: "44%",
-          opacity: 0.78,
+          right: "10%",
+          bottom: "20%",
+          background: "radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)",
+          filter: "blur(80px)",
+          pointerEvents: "none",
         }}
       />
 
-      {/* Floating Particles */}
+      {/* Subtle Floating Particles */}
       {particles.map((particle, index) => (
         <div
           key={index}
@@ -95,13 +100,10 @@ const HeroSection = () => {
             left: particle.left,
             top: particle.top,
             opacity: particle.opacity,
-            background:
-              index % 2 === 0
-                ? "rgba(255, 0, 0, 0.3)"
-                : "rgba(255, 51, 51, 0.2)",
-            borderRadius: index % 3 === 0 ? "8px" : "9999px",
+            background: "hsl(var(--primary) / 0.4)",
+            borderRadius: "50%",
             animationDelay: `${particle.delay}s`,
-            animationDuration: `${3 + (index % 3)}s`,
+            animationDuration: `${4 + (index % 3)}s`,
           }}
         />
       ))}
@@ -111,9 +113,11 @@ const HeroSection = () => {
         <div className="max-w-5xl mx-auto text-center">
           {/* Main Heading */}
           <h1
-            className="font-montserrat font-extrabold text-4xl md:text-5xl lg:text-[60px] leading-tight text-foreground mb-6 animate-fade-in-up"
+            className="font-montserrat font-extrabold text-4xl md:text-5xl lg:text-6xl leading-tight text-foreground mb-6 animate-fade-in-up"
             style={{
-              textShadow: "0 2px 20px rgba(0, 0, 0, 0.8)",
+              textShadow: theme === 'light' 
+                ? "0 2px 20px rgba(0, 0, 0, 0.1)" 
+                : "0 4px 30px rgba(0, 0, 0, 0.8)",
               letterSpacing: "-0.5px",
             }}
           >
@@ -123,7 +127,10 @@ const HeroSection = () => {
           {/* Sub-headline */}
           <p
             className="font-poppins text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 animate-fade-in-up"
-            style={{ animationDelay: "0.2s" }}
+            style={{ 
+              animationDelay: "0.2s",
+              textShadow: theme === 'light' ? "none" : "0 2px 10px rgba(0, 0, 0, 0.5)",
+            }}
           >
             {currentData.hero.subtitle}
           </p>
@@ -133,15 +140,24 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up"
             style={{ animationDelay: "0.4s" }}
           >
-            <button onClick={scrollToSectors} className="btn-primary group">
+            <button 
+              onClick={scrollToSectors} 
+              className="btn-primary group"
+            >
               {currentData.hero.cta1}
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
-            <button onClick={scrollToShop} className="btn-secondary group">
+            <button 
+              onClick={scrollToShop} 
+              className="btn-secondary group"
+            >
               {currentData.hero.cta2}
-              <ShoppingBag className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <ShoppingBag className="w-4 h-4" />
             </button>
-            <button onClick={scrollToContact} className="btn-secondary">
+            <button 
+              onClick={scrollToContact} 
+              className="btn-secondary"
+            >
               {currentData.hero.cta3}
             </button>
           </div>
