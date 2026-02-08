@@ -30,31 +30,27 @@ const imageMap: Record<string, string> = {
   commerce: commerceImg,
   ecommerce: ecommerceImg,
   logistics: logisticsImg,
-  operations: constructionImg, // reuse for Canada
-  trade: commerceImg, // reuse for Canada
-  community: consultingImg, // reuse for Canada
+  operations: constructionImg,
+  trade: commerceImg,
+  community: consultingImg,
 };
 
 const SectorsSection = () => {
   const { currentData } = useCountry();
 
-  // Determine image based on sector title/link
   const getImage = (link: string) => {
     const key = link.split('/').pop() || '';
     return imageMap[key] || consultingImg;
   };
 
-  // Organize sectors for grid layout
   const firstRow = currentData.sectors.slice(0, 4);
   const secondRow = currentData.sectors.slice(4);
 
   return (
     <section id="sectors" className="py-20 bg-background-secondary">
-      {/* Top Divider */}
       <div className="section-divider mb-16" />
 
       <div className="container mx-auto px-4">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-montserrat font-extrabold text-4xl md:text-5xl lg:text-6xl text-foreground mb-4">
             Our Core Sectors
@@ -64,7 +60,6 @@ const SectorsSection = () => {
           </p>
         </div>
 
-        {/* First Row - 4 cards */}
         {firstRow.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             {firstRow.map((sector, index) => (
@@ -73,9 +68,8 @@ const SectorsSection = () => {
           </div>
         )}
 
-        {/* Second Row - Centered remaining cards */}
         {secondRow.length > 0 && (
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${Math.min(secondRow.length, 3)} gap-6 lg:max-w-4xl mx-auto`}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:max-w-4xl mx-auto">
             {secondRow.map((sector, index) => (
               <SectorCard key={index + firstRow.length} sector={sector} index={index + firstRow.length} getImage={getImage} />
             ))}
@@ -108,7 +102,6 @@ const SectorCard = ({ sector, index, getImage }: SectorCardProps) => {
         animationDelay: `${index * 0.1}s`,
       }}
     >
-      {/* Image Container */}
       <div className="relative h-48 overflow-hidden">
         <img
           src={getImage(sector.link)}
@@ -131,12 +124,10 @@ const SectorCard = ({ sector, index, getImage }: SectorCardProps) => {
         />
       </div>
 
-      {/* Icon Container - Overlapping */}
       <div className="absolute left-6 top-40 z-10 w-16 h-16 bg-background border-2 border-primary rounded-xl flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
         {Icon && <Icon className="w-8 h-8 text-primary" />}
       </div>
 
-      {/* Content Area */}
       <div className="pt-12 pb-16 px-6 bg-card">
         <h3 className="font-montserrat font-bold text-xl md:text-[22px] text-foreground mb-3 leading-tight min-h-[56px]">
           {sector.title}
@@ -146,13 +137,12 @@ const SectorCard = ({ sector, index, getImage }: SectorCardProps) => {
         </p>
       </div>
 
-      {/* Learn More Link */}
       
         href={sector.link}
-        className="absolute bottom-6 left-6 font-poppins font-semibold text-sm text-primary flex items-center gap-2 transition-all duration-300 hover:gap-3 group/link"
+        className="absolute bottom-6 left-6 font-poppins font-semibold text-sm text-primary flex items-center gap-2 transition-all duration-300 hover:gap-3"
       >
         Learn More
-        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
+        <ArrowRight className="w-4 h-4" />
       </a>
     </div>
   );
