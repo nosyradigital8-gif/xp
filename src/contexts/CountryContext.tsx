@@ -2,6 +2,7 @@
 // Place this file at: src/contexts/CountryContext.tsx
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // Type definitions
 interface Sector {
@@ -319,6 +320,21 @@ const CountryContext = createContext<CountryContextType | undefined>(undefined);
 // Provider component
 export const CountryProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCountry, setSelectedCountry] = useState<string>('nigeria');
+  const location = useLocation();
+
+  // Detect country from URL path on route change
+  useEffect(() => {
+    const path = location.pathname;
+    
+    if (path.startsWith('/canada')) {
+      setSelectedCountry('canada');
+    } else if (path.startsWith('/nigeria')) {
+      setSelectedCountry('nigeria');
+    } else {
+      // Default to Nigeria for global routes (/)
+      setSelectedCountry('nigeria');
+    }
+  }, [location.pathname]);
 
   // Get current country data based on selection
   const currentData = selectedCountry === 'canada' ? canadaData : nigeriaData;
@@ -328,18 +344,6 @@ export const CountryProvider = ({ children }: { children: ReactNode }) => {
     { code: 'nigeria', name: 'Nigeria', flag: '🇳🇬' },
     { code: 'canada', name: 'Canada', flag: '🇨🇦' },
   ];
-
-  // Persist country selection to localStorage
-  useEffect(() => {
-    const savedCountry = localStorage.getItem('selectedCountry');
-    if (savedCountry && (savedCountry === 'nigeria' || savedCountry === 'canada')) {
-      setSelectedCountry(savedCountry);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('selectedCountry', selectedCountry);
-  }, [selectedCountry]);
 
   const value = {
     selectedCountry,
