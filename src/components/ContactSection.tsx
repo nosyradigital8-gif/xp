@@ -1,6 +1,5 @@
 import { Mail, Phone, Clock, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 import { useCountry } from "@/contexts/CountryContext";
-import { useTheme } from "@/contexts/ThemeContext";
 
 const socialLinks = [
   { icon: Linkedin, href: "#", label: "LinkedIn" },
@@ -32,11 +31,9 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-20 bg-background-secondary">
-      {/* Top Divider */}
       <div className="section-divider mb-16" />
 
       <div className="container mx-auto px-4">
-        {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="font-montserrat font-extrabold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Get in Touch
@@ -46,21 +43,19 @@ const ContactSection = () => {
           </p>
         </div>
 
-        {/* Contact Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
           {contactCards.map((card, index) => (
             <ContactCard key={index} card={card} />
           ))}
         </div>
 
-        {/* Social Links */}
         <div className="flex justify-center gap-4">
           {socialLinks.map((social, index) => (
             
               key={index}
               href={social.href}
               aria-label={social.label}
-              className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center transition-all duration-300 hover:border-primary hover:bg-primary/10 hover:-translate-y-0.5 group"
+              className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center transition-all duration-300 hover:border-primary hover:bg-background-secondary hover:-translate-y-0.5 group"
             >
               <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
@@ -80,22 +75,18 @@ interface ContactCardProps {
 }
 
 const ContactCard = ({ card }: ContactCardProps) => {
-  const { theme } = useTheme();
   const Icon = card.icon;
 
   return (
     <div className="bg-card border border-border rounded-2xl p-8 text-center flex flex-col items-center transition-all duration-300 hover:border-primary hover:-translate-y-1 hover:shadow-xl">
-      {/* Icon Container */}
       <div className="icon-container mb-5">
         <Icon className="w-8 h-8 text-primary" />
       </div>
 
-      {/* Label */}
       <h3 className="font-montserrat font-bold text-base text-foreground uppercase tracking-wider mb-3">
         {card.label}
       </h3>
 
-      {/* Lines */}
       <div className="space-y-1">
         {card.lines.map((line, index) => (
           <p key={index} className="font-poppins text-sm text-muted-foreground">
