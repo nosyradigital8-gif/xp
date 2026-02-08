@@ -1,6 +1,6 @@
 // FILE PATH: src/pages/nigeria/CommerceService.tsx
 // Place this file at: src/pages/nigeria/CommerceService.tsx
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Globe, Ship, FileText, TrendingUp } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
