@@ -30,13 +30,13 @@ const CTASection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={scrollToContact} 
-              className="px-8 py-4 bg-primary text-white font-montserrat font-bold text-base rounded-xl transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5"
+              className="px-8 py-4 bg-primary text-white font-montserrat font-bold text-base rounded-xl border-2 border-primary transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5"
             >
               Schedule Consultation
             </button>
             <button 
               onClick={scrollToServices} 
-              className="px-8 py-4 bg-transparent text-primary border-2 border-primary font-montserrat font-bold text-base rounded-xl transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg hover:-translate-y-0.5"
+              className="px-8 py-4 bg-transparent text-primary border-2 border-primary font-montserrat font-bold text-base rounded-xl transition-all duration-300 hover:border-primary/70 hover:shadow-lg hover:-translate-y-0.5"
             >
               View Services
             </button>
