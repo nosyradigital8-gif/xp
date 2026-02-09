@@ -249,29 +249,37 @@ export const countryData: Record<string, CountryData> = {
         "Community and personal services"
       ]
     },
-    stats: [
-      {
-        number: "5+",
-        label: "CORE SERVICES",
-        description: "Comprehensive solutions",
-        isNumeric: true,
-        value: 5
-      },
-      {
-        number: "100%",
-        label: "COMPLIANT",
-        description: "Canadian regulations",
-        isNumeric: false,
-        value: 0
-      },
-      {
-        number: "24/7",
-        label: "SUPPORT",
-        description: "Always available",
-        isNumeric: false,
-        value: 0
-      }
-    ],
+stats: [
+  {
+    number: "5+",
+    label: "CORE SERVICES",
+    description: "Comprehensive solutions",
+    isNumeric: true,
+    value: 5
+  },
+  {
+    number: "100%",
+    label: "COMPLIANT",
+    description: "Canadian regulations",
+    isNumeric: false,
+    value: 0
+  },
+  {
+    number: "24/7",
+    label: "SUPPORT",
+    description: "Always available",
+    isNumeric: false,
+    value: 0
+  },
+  {
+    number: "50+",
+    label: "CLIENTS",
+    description: "Trusted partners",
+    isNumeric: true,
+    value: 50
+  }
+],
+
     sectors: [
       {
         icon: "Briefcase",
