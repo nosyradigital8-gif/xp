@@ -16,6 +16,7 @@ import Contact  from '@/pages/Contact';
 import Shop          from '@/pages/Shop';
 import ShopCategory  from '@/pages/ShopCategory';
 import ProductDetail from '@/pages/ProductDetail';
+import Checkout      from '@/pages/Checkout';
 
 // Admin
 import AdminLogin     from '@/pages/admin/AdminLogin';
@@ -57,6 +58,7 @@ const App = () => {
 
                 {/* ── Shop ── */}
                 <Route path="/shop/product/:id" element={<ProductDetail />} />
+                <Route path="/checkout"         element={<Checkout />} />
 
                 {/* ─────────── NIGERIA ─────────── */}
                 <Route path="/nigeria"          element={<Index />} />
@@ -66,6 +68,7 @@ const App = () => {
                 <Route path="/nigeria/contact"  element={<Contact />} />
                 <Route path="/nigeria/shop"            element={<Shop />} />
                 <Route path="/nigeria/shop/categories" element={<ShopCategory />} />
+                <Route path="/nigeria/checkout"        element={<Checkout />} />
                 <Route path="/nigeria/services/consulting"   element={<ConsultingNigeria />} />
                 <Route path="/nigeria/services/oil-gas"      element={<OilGasNigeria />} />
                 <Route path="/nigeria/services/construction" element={<ConstructionNigeria />} />
@@ -82,6 +85,7 @@ const App = () => {
                 <Route path="/canada/contact"  element={<Contact />} />
                 <Route path="/canada/shop"            element={<Shop />} />
                 <Route path="/canada/shop/categories" element={<ShopCategory />} />
+                <Route path="/canada/checkout"        element={<Checkout />} />
                 <Route path="/canada/services/consulting" element={<ConsultingCanada />} />
                 <Route path="/canada/services/operations" element={<OperationsCanada />} />
                 <Route path="/canada/services/logistics"  element={<LogisticsCanada />} />
