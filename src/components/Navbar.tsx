@@ -12,6 +12,7 @@ import logoBlack from "@/assets/logo-black.png";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  { label: "Shop", href: "/shop" }, // ← Add this line
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
   { label: "Contact", href: "/contact" },
