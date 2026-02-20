@@ -115,8 +115,12 @@ const ReviewStep = ({ info, onBack, onNext }: { info: CustomerInfo; onBack: () =
         <div className="border border-gray-100 divide-y divide-gray-50">
           {cart.map(item => (
             <div key={item.id} className="flex items-center gap-4 p-4">
-              <img src={item.image} alt={item.name} className="w-14 h-14 object-cover flex-shrink-0 bg-gray-50"
-                onError={e => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&q=80'; }} />
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-14 h-14 object-cover flex-shrink-0 bg-gray-50"
+                onError={e => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=100&q=80'; }}
+              />
               <div className="flex-1 min-w-0">
                 <p className="font-poppins font-semibold text-sm text-gray-900 truncate">{item.name}</p>
                 <p className="font-poppins text-xs text-[#E02020] font-semibold">{item.category}</p>
@@ -129,6 +133,7 @@ const ReviewStep = ({ info, onBack, onNext }: { info: CustomerInfo; onBack: () =
           ))}
         </div>
       </div>
+
       <div className="bg-gray-50 border border-gray-100 p-4">
         <div className="flex justify-between items-center">
           <span className="font-montserrat font-bold text-gray-700 uppercase tracking-wide text-sm">Total</span>
@@ -136,6 +141,7 @@ const ReviewStep = ({ info, onBack, onNext }: { info: CustomerInfo; onBack: () =
         </div>
         <p className="font-poppins text-xs text-gray-400 mt-1">Shipping calculated after payment</p>
       </div>
+
       <div className="border border-gray-100 p-4">
         <h3 className="font-montserrat font-bold text-gray-900 mb-3 text-sm uppercase tracking-widest">Delivering To</h3>
         <div className="space-y-1">
@@ -146,6 +152,7 @@ const ReviewStep = ({ info, onBack, onNext }: { info: CustomerInfo; onBack: () =
         </div>
         <button onClick={onBack} className="mt-3 font-poppins text-xs text-[#E02020] font-semibold hover:underline">← Edit details</button>
       </div>
+
       <div className="flex gap-3">
         <button onClick={onBack} className="flex-1 border border-gray-200 text-gray-700 font-montserrat font-bold py-3.5 text-sm uppercase tracking-wide hover:bg-gray-50 transition-colors">← Back</button>
         <button onClick={onNext} className="flex-1 bg-[#E02020] text-white font-montserrat font-bold py-3.5 text-sm uppercase tracking-widest hover:bg-[#c01a1a] transition-colors">Proceed to Pay →</button>
@@ -161,7 +168,8 @@ const PaymentStep = ({ info, onBack, onSuccess }: { info: CustomerInfo; onBack: 
   const isNigeria = currentData.code === 'NG';
   const currency  = cart[0]?.currency;
 
-  const initializePayment = useFlutterwave({
+  // ✅ FIX: Destructure the returned object, not just the function
+  const { initializePayment, loading } = useFlutterwave({
     amount:        cartTotal,
     currency:      isNigeria ? 'NGN' : 'CAD',
     customerEmail: info.email,
@@ -239,15 +247,31 @@ const PaymentStep = ({ info, onBack, onSuccess }: { info: CustomerInfo; onBack: 
           <p className="font-poppins text-sm text-gray-600 font-semibold">Secured by Flutterwave</p>
         </div>
         <p className="font-poppins text-xs text-gray-400 mb-6">Your payment is encrypted and processed securely.</p>
+
+        {/* ✅ FIX: Use initializePayment from destructured object, disable while loading */}
         <button
           onClick={initializePayment}
-          className="w-full bg-[#E02020] text-white font-montserrat font-bold py-5 hover:bg-[#c01a1a] transition-colors text-base uppercase tracking-widest flex items-center justify-center gap-3"
+          disabled={loading}
+          className="w-full bg-[#E02020] text-white font-montserrat font-bold py-5 hover:bg-[#c01a1a] transition-colors text-base uppercase tracking-widest flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-          </svg>
-          Pay {currency && formatPrice(cartTotal, currency)}
+          {loading ? (
+            <>
+              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+              </svg>
+              Processing...
+            </>
+          ) : (
+            <>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+              Pay {currency && formatPrice(cartTotal, currency)}
+            </>
+          )}
         </button>
+
         <div className="flex items-center justify-center gap-3 mt-4 flex-wrap">
           {paymentMethods.map(m => (
             <span key={m} className="text-xs font-poppins text-gray-400 border border-gray-100 px-2 py-0.5">{m}</span>
@@ -255,7 +279,11 @@ const PaymentStep = ({ info, onBack, onSuccess }: { info: CustomerInfo; onBack: 
         </div>
       </div>
 
-      <button onClick={onBack} className="w-full border border-gray-200 text-gray-600 font-montserrat font-bold py-3 text-sm uppercase tracking-wide hover:bg-gray-50 transition-colors">
+      <button
+        onClick={onBack}
+        disabled={loading}
+        className="w-full border border-gray-200 text-gray-600 font-montserrat font-bold py-3 text-sm uppercase tracking-wide hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
         ← Back to Review
       </button>
     </div>
@@ -301,8 +329,10 @@ const Checkout = () => {
           </div>
           <h1 className="font-montserrat font-bold text-2xl text-gray-900 mb-3">Your cart is empty</h1>
           <p className="font-poppins text-gray-500 mb-8">Add some products before checking out.</p>
-          <Link to={isNigeria ? '/nigeria/shop' : '/canada/shop'}
-            className="inline-block bg-[#E02020] text-white font-montserrat font-bold px-8 py-4 hover:bg-[#c01a1a] transition-colors uppercase tracking-widest text-sm">
+          <Link
+            to={isNigeria ? '/nigeria/shop' : '/canada/shop'}
+            className="inline-block bg-[#E02020] text-white font-montserrat font-bold px-8 py-4 hover:bg-[#c01a1a] transition-colors uppercase tracking-widest text-sm"
+          >
             Continue Shopping
           </Link>
         </div>
