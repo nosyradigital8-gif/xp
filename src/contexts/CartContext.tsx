@@ -1,11 +1,10 @@
 // FILE PATH: src/contexts/CartContext.tsx
-// Place this file at: src/contexts/CartContext.tsx
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Product, CartItem } from '@/data/shopData';
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (product: Product) => boolean; // returns false if blocked
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
@@ -13,6 +12,8 @@ interface CartContextType {
   cartCount: number;
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
+  blockedMessage: string | null;
+  clearBlockedMessage: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -24,12 +25,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     } catch { return []; }
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [blockedMessage, setBlockedMessage] = useState<string | null>(null);
 
   useEffect(() => {
     localStorage.setItem('xpola_cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product): boolean => {
+    // ── Block mixing Nigeria & Canada products ──
+    if (cart.length > 0) {
+      const cartCountry = cart[0].country; // 'nigeria' or 'canada'
+      if (product.country !== cartCountry) {
+        const cartStoreName  = cartCountry === 'nigeria' ? 'Nigeria 🇳🇬' : 'Canada 🇨🇦';
+        const itemStoreName  = product.country === 'nigeria' ? 'Nigeria 🇳🇬' : 'Canada 🇨🇦';
+        setBlockedMessage(
+          `You already have items from the ${cartStoreName} store in your cart. Please clear your cart before adding items from the ${itemStoreName} store.`
+        );
+        setIsCartOpen(true);
+        return false;
+      }
+    }
+
     setCart(prev => {
       const existing = prev.find(i => i.id === product.id);
       if (existing) {
@@ -38,6 +54,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return [...prev, { ...product, quantity: 1 }];
     });
     setIsCartOpen(true);
+    return true;
   };
 
   const removeFromCart = (id: string) => setCart(prev => prev.filter(i => i.id !== id));
@@ -48,12 +65,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const clearCart = () => setCart([]);
+  const clearBlockedMessage = () => setBlockedMessage(null);
 
   const cartTotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
   const cartCount = cart.reduce((sum, i) => sum + i.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, cartTotal, cartCount, isCartOpen, setIsCartOpen }}>
+    <CartContext.Provider value={{
+      cart, addToCart, removeFromCart, updateQuantity, clearCart,
+      cartTotal, cartCount, isCartOpen, setIsCartOpen,
+      blockedMessage, clearBlockedMessage,
+    }}>
       {children}
     </CartContext.Provider>
   );
