@@ -1,6 +1,4 @@
 // FILE PATH: src/components/common/Navbar.tsx
-// Place this file at: src/components/common/Navbar.tsx
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
@@ -9,17 +7,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 import logoWhite from "@/assets/logo-white.png";
 import logoBlack from "@/assets/logo-black.png";
 
-const { selectedCountry } = useCountry();
-
-const navLinks = [
-  { label: "Home", href: `/${selectedCountry}` },
-  { label: "Services", href: `/${selectedCountry}/services` },
-  { label: "Shop", href: `/${selectedCountry}/shop` },
-  { label: "About", href: `/${selectedCountry}/about` },
-  { label: "Projects", href: `/${selectedCountry}/projects` },
-  { label: "Contact", href: `/${selectedCountry}/contact` },
-];
-
+// ✅ Move this OUTSIDE - it doesn't use hooks
 const countries = [
   { code: "nigeria", name: "Nigeria", flag: "🇳🇬" },
   { code: "canada", name: "Canada", flag: "🇨🇦" },
@@ -33,11 +21,20 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
+  // ✅ navLinks now lives INSIDE the component
+  const navLinks = [
+    { label: "Home", href: `/${selectedCountry}` },
+    { label: "Services", href: `/${selectedCountry}/services` },
+    { label: "Shop", href: `/${selectedCountry}/shop` },
+    { label: "About", href: `/${selectedCountry}/about` },
+    { label: "Projects", href: `/${selectedCountry}/projects` },
+    { label: "Contact", href: `/${selectedCountry}/contact` },
+  ];
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -47,8 +44,6 @@ const Navbar = () => {
   }, [location]);
 
   const currentCountry = countries.find(c => c.code === selectedCountry);
-  
-  // Use white logo for dark theme, black logo for light theme
   const currentLogo = theme === 'dark' ? logoWhite : logoBlack;
 
   const isActivePage = (href: string) => {
@@ -105,7 +100,6 @@ const Navbar = () => {
                 <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${isCountryDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* Dropdown */}
               {isCountryDropdownOpen && (
                 <div className="absolute top-full right-0 mt-2 w-48 bg-background border border-border rounded-lg shadow-xl overflow-hidden">
                   {countries.map((country) => (
@@ -157,11 +151,7 @@ const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden w-10 h-10 flex items-center justify-center text-foreground"
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
