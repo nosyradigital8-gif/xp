@@ -1,5 +1,6 @@
 // FILE PATH: src/pages/ShopCategory.tsx
 // Place this file at: src/pages/ShopCategory.tsx
+
 import { useState, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -11,6 +12,8 @@ import {
   nigeriaCategories, canadaCategories,
   formatPrice, Product,
 } from '@/data/shopData';
+import CartDrawer from '../components/CartDrawer';
+
 
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'rating' | 'newest';
 
@@ -469,7 +472,7 @@ const ShopCategory = () => {
           </span>
         )}
       </button>
-
+      <CartDrawer />
       <Footer />
     </div>
   );
