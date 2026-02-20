@@ -294,7 +294,7 @@ const PaymentStep = ({
     email: info.email,
     amount: paystackAmount,
     currency: isNigeria ? 'NGN' : 'GHS', // swap to USD/CAD when you upgrade Paystack account
-    publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_test_xxxxxxxxxxxxxxxx',
+    publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_test_d16f014e0c3a56d1c0ae9849a956b35cbe10eb56',
     firstname: info.firstName,
     lastname: info.lastName,
     phone: info.phone,
